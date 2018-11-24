@@ -15,7 +15,7 @@ source:
 
 build:
   merge_build_host: True  # [win]
-  number: 0
+  number: 1000
   skip: true  # [win32]
   rpaths:
     - lib/R/lib/
@@ -31,6 +31,7 @@ requirements:
     - {{posix}}sed               # [win]
     - {{posix}}coreutils         # [win]
     - {{posix}}zip               # [win]
+    - llvm-openmp                # [osx]
   host:
     - r-base
     - r-rcpp
@@ -38,6 +39,7 @@ requirements:
     - r-base
     - {{native}}gcc-libs         # [win]
     - r-rcpp
+    - llvm-openmp                # [osx]
 
 test:
   commands:
