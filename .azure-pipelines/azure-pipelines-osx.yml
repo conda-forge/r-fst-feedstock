@@ -10,11 +10,8 @@ jobs:
   strategy:
     maxParallel: 8
     matrix:
-      osx_r_base3.5.1target_platformosx-64:
-        CONFIG: osx_r_base3.5.1target_platformosx-64
-        UPLOAD_PACKAGES: True
-      osx_r_base3.6target_platformosx-64:
-        CONFIG: osx_r_base3.6target_platformosx-64
+      osx_target_platformosx-64:
+        CONFIG: osx_target_platformosx-64
         UPLOAD_PACKAGES: True
 
   steps:
@@ -38,7 +35,7 @@ jobs:
 
   - script: |
       source activate base
-      conda install -n base -c conda-forge --quiet --yes conda-forge-ci-setup=2 conda-build
+      conda install -n base -c conda-forge --quiet --yes conda-forge-ci-setup=2 conda-build shyaml
     displayName: 'Add conda-forge-ci-setup=2'
 
   - script: |
@@ -46,7 +43,7 @@ jobs:
       echo "Configuring conda."
 
       setup_conda_rc ./ ./recipe ./.ci_support/${CONFIG}.yaml
-      export CI=azure
+
       source run_conda_forge_build_setup
       conda update --yes --quiet --override-channels -c conda-forge -c defaults --all
     env: {
@@ -71,9 +68,8 @@ jobs:
 
   - script: |
       source activate base
-      export GIT_BRANCH=$BUILD_SOURCEBRANCHNAME
       upload_package ./ ./recipe ./.ci_support/${CONFIG}.yaml
-    displayName: Upload package
+    displayName: Upload recipe
     env:
       BINSTAR_TOKEN: $(BINSTAR_TOKEN)
     condition: not(eq(variables['UPLOAD_PACKAGES'], 'False'))

@@ -21,15 +21,15 @@ build:
 
 requirements:
   build:
-    - {{ compiler('c') }}        # [not win]
-    - {{ compiler('cxx') }}      # [not win]
-    - {{native}}toolchain        # [win]
+    - {{ compiler('c') }}              # [not win]
+    - {{ compiler('m2w64_c') }}        # [win]
+    - {{ compiler('cxx') }}            # [not win]
+    - {{ compiler('m2w64_cxx') }}      # [win]
     - {{posix}}filesystem        # [win]
     - {{posix}}make
     - {{posix}}sed               # [win]
     - {{posix}}coreutils         # [win]
     - {{posix}}zip               # [win]
-    - llvm-openmp                # [osx]
   host:
     - r-base
     - r-rcpp
@@ -37,7 +37,6 @@ requirements:
     - r-base
     - {{native}}gcc-libs         # [win]
     - r-rcpp
-    - llvm-openmp                # [osx]
 
 test:
   commands:
@@ -52,6 +51,9 @@ about:
     and ZSTD compressors created by Yann Collet. The ZSTD compression library is owned
     by Facebook Inc.
   license_family: AGPL
+  license_file:
+    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/AGPL-3'
+    - LICENSE
 
 extra:
   recipe-maintainers:
