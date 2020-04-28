@@ -36,7 +36,7 @@ requirements:
     - r-rcpp
   run:
     - r-base
-    - {{native}}gcc-libs         # [win]
+    - {{ native }}gcc-libs         # [win]
     - r-rcpp
     - llvm-openmp                # [osx]
 
