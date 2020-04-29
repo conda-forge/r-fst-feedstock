@@ -2,6 +2,10 @@
 if [[ $target_platform == osx-64 ]]; then
   export CFLAGS="${CFLAGS} -fopenmp"
   export LDFLAGS="${LDFLAGS} -lomp"
+  mkdir -p ~/.R
+  echo "CFLAGS=${CFLAGS}" >> ~/.R/Makevars
+  echo -e "\n" >> ~/.R/Makevars
+  echo "LDFLAGS=${LDFLAGS}" >> ~/.R/Makevars
 fi
 
 if [[ $target_platform =~ linux.* ]] || [[ $target_platform == win-32 ]] || [[ $target_platform == win-64 ]] || [[ $target_platform == osx-64 ]]; then
