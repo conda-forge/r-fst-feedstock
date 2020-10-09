@@ -5,11 +5,9 @@ Home: https://fstpackage.github.io
 
 Package license: AGPL-3.0-only
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-fst-feedstock/blob/master/LICENSE.txt)
 
 Summary: Multithreaded serialization of compressed data frames using the 'fst' format. The 'fst' format allows for random access of stored data and compression with the LZ4 and ZSTD compressors created by Yann Collet. The ZSTD compression library is owned by Facebook Inc.
-
-
 
 Current build status
 ====================
