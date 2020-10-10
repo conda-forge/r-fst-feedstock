@@ -1,4 +1,4 @@
-{% set version = '0.9.0' %}
+{% set version = "0.9.0" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -13,31 +13,33 @@ source:
   sha256: 2e8bc93b1c2c1a41f743d6338fd37a2907c907b159776e32bbc5637011a44579
 
 build:
-  merge_build_host: True  # [win]
-  number: 0
+  merge_build_host: true  # [win]
+  number: 1
+  skip: True  # [osx]
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
-    - {{ compiler('c') }}        # [not win]
-    - {{ compiler('cxx') }}      # [not win]
-    - {{native}}toolchain        # [win]
-    - {{posix}}filesystem        # [win]
-    - {{posix}}make
-    - {{posix}}sed               # [win]
-    - {{posix}}coreutils         # [win]
-    - {{posix}}zip               # [win]
+    - {{ compiler('c') }}              # [not win]
+    - {{ compiler('m2w64_c') }}        # [win]
+    - {{ compiler('cxx') }}            # [not win]
+    - {{ compiler('m2w64_cxx') }}      # [win]
+    - {{ posix }}filesystem        # [win]
+    - {{ posix }}make
+    - {{ posix }}sed               # [win]
+    - {{ posix }}coreutils         # [win]
+    - {{ posix }}zip               # [win]
     - llvm-openmp                # [osx]
   host:
     - r-base
     - r-rcpp
   run:
     - r-base
-    - {{native}}gcc-libs         # [win]
+    - {{ native }}gcc-libs         # [win]
     - r-rcpp
-    - llvm-openmp                # [osx]
+    - lz4-c  # [osx]
 
 test:
   commands:
@@ -46,13 +48,13 @@ test:
 
 about:
   home: https://fstpackage.github.io
-  license: AGPL-3
-  summary: Multithreaded serialization of compressed data frames using the 'fst' format. The
-    'fst' format allows for random access of stored data and compression with the LZ4
-    and ZSTD compressors created by Yann Collet. The ZSTD compression library is owned
-    by Facebook Inc.
+  license: AGPL-3.0-only
+  summary: Multithreaded serialization of compressed data frames using the 'fst' format. The 'fst' format allows for random access of stored data and compression with the LZ4 and ZSTD compressors created by Yann Collet. The ZSTD compression library is owned by Facebook Inc.
   license_family: AGPL
 
+  license_file:
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/AGPL-3
+    - LICENSE
 extra:
   recipe-maintainers:
     - conda-forge/r
