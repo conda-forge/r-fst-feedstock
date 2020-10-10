@@ -14,28 +14,29 @@ source:
 
 build:
   merge_build_host: True  # [win]
-  number: 0
+  number: 1
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
-    - {{ compiler('c') }}        # [not win]
-    - {{ compiler('cxx') }}      # [not win]
-    - {{native}}toolchain        # [win]
-    - {{posix}}filesystem        # [win]
-    - {{posix}}make
-    - {{posix}}sed               # [win]
-    - {{posix}}coreutils         # [win]
-    - {{posix}}zip               # [win]
-    - llvm-openmp                # [osx]
+    - {{ compiler('c') }}          # [not win]
+    - {{ compiler('cxx') }}        # [not win]
+    - {{ compiler('m2w64_c') }}    # [win]
+    - {{ compiler('m2w64_cxx') }}  # [win]
+    - {{ posix }}filesystem        # [win]
+    - {{ posix }}make
+    - {{ posix }}sed               # [win]
+    - {{ posix }}coreutils         # [win]
+    - {{ posix }}zip               # [win]
+    - llvm-openmp                  # [osx]
   host:
     - r-base
     - r-rcpp
   run:
     - r-base
-    - {{native}}gcc-libs         # [win]
+    - {{ native }}gcc-libs         # [win]
     - r-rcpp
     - llvm-openmp                # [osx]
 
