@@ -1,4 +1,4 @@
-{% set version = "0.9.0" %}
+{% set version = "0.9.4" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,12 +10,12 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/fst_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/fst/fst_{{ version }}.tar.gz
-  sha256: 2e8bc93b1c2c1a41f743d6338fd37a2907c907b159776e32bbc5637011a44579
+  sha256: 39cb959ae17fe504d34903a8799e9428e71a8e5d49487fad4dbc22cefba78c6f
 
 build:
   merge_build_host: true  # [win]
-  number: 1
-  skip: True  # [osx]
+  number: 0
+  skip: true  # [osx]
   rpaths:
     - lib/R/lib/
     - lib/
