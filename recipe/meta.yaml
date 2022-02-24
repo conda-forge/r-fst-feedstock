@@ -1,4 +1,4 @@
-{% set version = "0.9.6" %}
+{% set version = "0.9.8" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,12 +10,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/fst_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/fst/fst_{{ version }}.tar.gz
-  sha256: 10fb71db1518eebf381b41b4c31c546ec06bfc5bb15a4fe8ad3966e94a966b23
+  sha256: 44c7e889879c2a3a704b70152196e27b6fc1d700062056f9a9c0a49cb98d2665
 
 build:
   merge_build_host: true  # [win]
   number: 0
-  skip: true  # [osx]
   rpaths:
     - lib/R/lib/
     - lib/
@@ -31,15 +30,16 @@ requirements:
     - {{ posix }}sed               # [win]
     - {{ posix }}coreutils         # [win]
     - {{ posix }}zip               # [win]
-    - llvm-openmp                # [osx]
+    - cross-r-base {{ r_base }}    # [build_platform != target_platform]
   host:
     - r-base
     - r-rcpp
+    - r-fstcore
   run:
     - r-base
     - {{ native }}gcc-libs         # [win]
     - r-rcpp
-    - lz4-c  # [osx]
+    - r-fstcore
 
 test:
   commands:
@@ -51,10 +51,10 @@ about:
   license: AGPL-3.0-only
   summary: Multithreaded serialization of compressed data frames using the 'fst' format. The 'fst' format allows for random access of stored data and compression with the LZ4 and ZSTD compressors created by Yann Collet. The ZSTD compression library is owned by Facebook Inc.
   license_family: AGPL
-
   license_file:
     - {{ environ["PREFIX"] }}/lib/R/share/licenses/AGPL-3
     - LICENSE
+
 extra:
   recipe-maintainers:
     - conda-forge/r
